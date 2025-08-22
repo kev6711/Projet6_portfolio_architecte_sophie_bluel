@@ -14,7 +14,7 @@ const filters = document.querySelector(".filters")
 
 
 /*Fonction pour insérer travaux dans le html*/
-function getWorks() {
+function getWorks(works) {
     gallery.innerHTML = ""
 
     for(let i = 0; i < works.length; i++ ) {
@@ -30,12 +30,13 @@ function getWorks() {
     }
 }
 
-getWorks()
+getWorks(works)
 
 /*Fonction pour insérer filtres dans le html*/
 function getFilters() {
     const defaultButton = document.createElement("button")
     defaultButton.textContent = "Tous"
+    defaultButton.classList.add("button_selected")
     filters.appendChild(defaultButton)
 
     for(let i = 0; i < categories.length; i++) {
@@ -46,3 +47,31 @@ function getFilters() {
 }
 
 getFilters()
+
+/*Récupération des balises button*/
+const buttonFilters = document.querySelectorAll("button")
+
+/*Fonction pour appliquer le style du bouton sur lequel on a cliqué*/
+function activeButtonStyle(clickedButton) {
+	buttonFilters.forEach(button => {
+			button.classList.remove("button_selected")
+		})
+		clickedButton.classList.add("button_selected");
+}
+
+/*Ajout EventListener sur les boutons*/
+buttonFilters.forEach(button => {
+    button.addEventListener("click", () => {
+        const buttonName = button.textContent;
+
+        if (buttonName === "Tous") {
+            getWorks(works)
+        } else {
+            const worksFilter = works.filter(function(work) {
+                return work.category.name === buttonName;
+            });
+            getWorks(worksFilter)
+        }
+        activeButtonStyle(button)
+    })
+})

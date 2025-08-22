@@ -126,6 +126,7 @@ li:hover {
 	margin-bottom: 1em;
 }
 
+/*Ajout styles des filtres*/
 .filters {
 	display: flex;
 	justify-content: center;
@@ -144,11 +145,12 @@ li:hover {
 	border-radius: 60px;
 	background-color: unset;
 	padding: 8px 13px;
+	cursor: pointer;
 }
 
-.filters button_selected {
-		color: #FFFFFF;
-		background-color: #1D6154;
+.filters .button_selected {
+	color: #FFFFFF;
+	background-color: #1D6154;
 }
 
 .gallery {
