@@ -34,3 +34,11 @@
     text-align: center;
     text-decoration: underline;
 }
+
+.login_Error {
+	font-family: 'Work Sans';
+	font-size : 14px;
+	font-weight: bold;
+	color : red;
+	margin-top: 58px;
+}
