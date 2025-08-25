@@ -1,0 +1,40 @@
+.edition_handband {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 11px;
+    background-color: #000000;
+    height: 59px;
+    color: #FFFFFF
+}
+
+.fa-pen-to-square {
+    width: 15.58px;
+    height: 15.58px;
+}
+
+.handband_title {
+    font-size: 16px;
+}
+
+.projects {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 31px;
+    margin-bottom: 92px;
+}
+
+#portfolio .projects h2 {
+    margin-bottom: 0;
+}
+
+.modify_projects {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filters_hidden {
+    display: none;
+}

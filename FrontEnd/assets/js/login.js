@@ -12,7 +12,7 @@ function displayErrorMessage () {
     }
     
     const loginErrorMessage = `
-        <p class="login_Error"> Combinaison Email et mot de passe incorrecte </p> 
+        <p class="login_Error"> Erreur dans l’identifiant ou le mot de passe </p> 
     `
     formTitle.innerHTML += loginErrorMessage
 }
@@ -37,7 +37,7 @@ loginForm.addEventListener("submit", async function (event) {
 
     if (responseLogin.ok) {
         localStorage.setItem("token", responseLoginData.token)
-        window.location.href = "../../index.html"
+        window.location.href = "../html/accueil_mode_edition.html"
     } else {
         displayErrorMessage()
     }

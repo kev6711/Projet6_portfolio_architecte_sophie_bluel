@@ -1,6 +1,7 @@
-/*------------Importations des styles de la page de connexion------------*/
+/*------------Importations des styles de la page de connexion et du mode édition------------*/
 
 @import url(login.css);
+@import url(accueil_mode_edition.css);
 
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
