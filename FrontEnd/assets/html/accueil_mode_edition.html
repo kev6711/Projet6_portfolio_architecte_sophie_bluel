@@ -46,9 +46,19 @@
 		<div class="projects">
 			<h2>Mes Projets</h2>
 			<div class="modify_projects">
-				<i class="fa-regular fa-pen-to-square"></i>
-				<p>modifier</p>
+				<a href="gallery_modal" class="modal_link">
+					<i class="fa-regular fa-pen-to-square"></i>
+					<p>modifier</p>
+				</a>
 			</div>
+			<aside id="gallery_modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
+				<div class="modal_wrapper">
+					<h3 id="modal_title">Galerie photo</h3>
+					<div class="modal_photos">
+					</div>
+					<input type="submit" value="Ajouter une photo">
+				</div>
+			</aside>
 		</div>
 		<!-- Ajout div pour les filtres -->
 		<div class="filters_hidden">
