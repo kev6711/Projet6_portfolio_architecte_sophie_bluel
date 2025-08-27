@@ -79,7 +79,7 @@ buttonFilters.forEach(button => {
 })
 
 
-/*Modale*/
+/*Modale - Vue galerie photo*/
 
 
 /*Ajout photos dans la modale*/
@@ -97,7 +97,7 @@ const modalFigures = document.querySelectorAll(".modal_photos figure")
 
 modalFigures.forEach(figure => {
     const trashIcon = `
-        <i class="fa-solid fa-trash-can"></i>
+        <button class="delete_photo"> <i class="fa-solid fa-trash-can"></i> </button>
     `
     figure.innerHTML += trashIcon
 })
@@ -106,6 +106,75 @@ modalFigures.forEach(figure => {
 const modalWrapper = document.querySelector(".modal_wrapper")
 
 const crossIcon = `
-    <i class="fa-solid fa-xmark"></i>
+    <button class="modal_close"> <i class="fa-solid fa-xmark"></i> </button>
 `
 modalWrapper.innerHTML += crossIcon
+
+
+/*Ajout Event Listener sur lien vers modale*/
+let modal = null
+const focusableSelector = "button, input, a, textarea" 
+let focusables = []
+
+/*Fonction pour l'ouverture de la modale*/
+const openModal = function (e) {
+    e.preventDefault();
+    modal = document.querySelector(e.currentTarget.getAttribute('href'))
+    focusables = Array.from(modal.querySelectorAll(focusableSelector))
+    modal.classList.add('modal_open')
+    modal.removeAttribute('aria-hidden')
+    modal.setAttribute('aria-modal', 'true')
+    modal.addEventListener("click", closeModal)
+    modal.querySelector(".modal_close").addEventListener("click", closeModal)
+    modal.querySelector(".modal_stop").addEventListener("click", stopPropagation)
+}
+
+/*Fonction pour la fermeture de la modale*/
+const closeModal = function (e) {
+    if (modal === null) return
+    e.preventDefault();
+    modal.classList.remove('modal_open')
+    modal.setAttribute('aria-hidden', 'true')
+    modal.removeAttribute('aria-modal')
+    modal.removeEventListener("click", closeModal)
+    modal.querySelector(".modal_close").removeEventListener("click", closeModal)
+    modal.querySelector(".modal_stop").removeEventListener("click", stopPropagation)
+    modal = null
+
+}
+
+/*Fonction pour empêcher que la modale se ferme quand on clique à l'intérieur de la fenêtre modale*/
+const stopPropagation = function (e) {
+    e.stopPropagation()
+}
+
+/*Gestion du focus dans la boîte modale*/
+const focusInModal = function (e) {
+    e.preventDefault()
+    let index = focusables.findIndex(f => f === modal.querySelector(":focus"))
+    if (e.shiftKey === true) {
+        index--
+    } else {
+        index++
+    }
+    if (index >= focusables.length) {
+        index = 0
+    }
+    if (index < 0) {
+        index = focusables.length - 1
+    }
+    focusables[index].focus()
+}
+
+/*Gestion de la fermeture de la modale avec la touche Echap*/
+window.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+        closeModal(e)
+    }
+    if (e.key === "Tab" && modal !== null) {
+        focusInModal(e)
+    }
+})
+
+const modalLink = document.querySelector(".modal_link")
+modalLink.addEventListener("click", openModal)
