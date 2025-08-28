@@ -1,4 +1,4 @@
-.li_bold {
+.li-bold {
     font-weight: 600;
 }
 
@@ -30,12 +30,12 @@
 	margin: 2em 0 1em 0;
 }
 
-.forgotten_password {
+.forgotten-password {
     text-align: center;
     text-decoration: underline;
 }
 
-.login_Error {
+.login-Error {
 	font-family: 'Work Sans';
 	font-size : 14px;
 	font-weight: bold;

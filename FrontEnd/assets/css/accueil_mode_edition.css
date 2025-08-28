@@ -1,20 +1,20 @@
-.edition_handband,
+.edition-handband,
 .projects,
 .modal,
-.modal_wrapper,
-.modal_link {
+.modal-wrapper,
+.modal-link {
     display: flex;
     align-items: center;
 }
 
-.edition_handband,
+.edition-handband,
 .projects,
 .modal,
-.modal_wrapper {
+.modal-wrapper {
     justify-content: center;
 }
 
-.edition_handband {
+.edition-handband {
     gap: 11px;
     background-color: #000000;
     height: 59px;
@@ -26,7 +26,7 @@
     height: 15.58px;
 }
 
-.handband_title {
+.handband-title {
     font-size: 16px;
 }
 
@@ -39,14 +39,10 @@
     margin-bottom: 0;
 }
 
-.modal_link {
+.modal-link {
     gap: 10px;
     text-decoration: none;
     color: #000000;
-}
-
-.filters_hidden {
-    display: none;
 }
 
 .modal {
@@ -59,12 +55,12 @@
     display: none;
 }
 
-.modal_open {
+.modal-open {
     display: flex;
 }
 
 
-.modal_wrapper {
+.modal-wrapper {
     flex-direction: column;
     width: 630px;
     height: 688px;
@@ -78,7 +74,7 @@
     position: relative;
 }
 
-.modal_photos {
+.modal-photos {
   display: flex;
   flex-wrap: wrap;
   column-gap: 9px;
@@ -88,30 +84,31 @@
   border-bottom: 1px solid #B3B3B3;
 }
 
-.modal_photos figure {
+.modal-photos figure {
     width: calc((100% - 36px) / 5);
     height: 102.57px;
     position: relative;
 }
 
-.modal_photos img {
+.modal-photos img {
     height: 100%;
 }
 
-.modal_wrapper input[type="submit"] {
+.modal-wrapper input[type="submit"] {
     margin-top: 38px;
     margin-bottom: 0;
     width: 237px;
     height: 36px;
     font-size: 14px;
     cursor: pointer;
+    box-shadow: none;
 }
 
-#modal_title {
+#modal-title {
     font-size: 26px;
 }
 
-.delete_photo {
+.delete-photo {
     font-size: 11px;
     background-color: #000000;
     border-radius: 2px;
@@ -120,22 +117,160 @@
     position: absolute;
     top: 6px;
     right: 5px;
+    border: none;
 }
 
-.modal_close {
+.modal-close {
     font-size: 12.01px;
     width: 12.01px;
     text-align: center;
     position: absolute;
     top: 32px;
     right: 36px;
+    border: none;
+    background: unset;
+    padding: unset;
+}
+
+.goback-arrow {
+    font-size: 18.01px;
+    width: 21px;
+    position: absolute;
+    top: 26px;
+    left: 30px;
+    border: none;
+    background: unset;
+    padding: unset;
 }
 
 button {
-    all: unset;
     cursor: pointer;
 }
 
 .modal :focus {
     box-shadow: 0 0 5px blue;
+}
+
+.modal-wrapper form {
+    margin-top: 36px;
+    padding-bottom: 47px;
+    border-bottom: 1px solid #B3B3B3;
+    width: 420px;
+}
+
+.modal-wrapper input {
+    height: 51px;
+    width: 100%;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    border: none;
+    padding: unset;
+}
+
+#file {
+    margin-bottom: 30px;
+}
+
+#title {
+    margin-top: 10px;
+    margin-bottom: 21px;
+    padding: 0 0 0 16px;
+    box-sizing: border-box;
+    font-family: 'Work Sans';
+    font-size: 14px;
+    color: #444444;
+}
+
+.select-container {
+  position: relative;
+}
+
+#category {
+    margin-top: 10px;
+    height: 51px;
+    width: 100%;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    border: none;
+    padding: 0 0 0 16px;
+    background-color: #FFFFFF;
+    font-family: 'Work Sans';
+    font-size: 14px;
+    color: #444444;
+    appearance: none;
+    cursor: pointer;
+}
+
+.fa-chevron-down {
+  position: absolute;
+  top: 34px;
+  right: 20px;
+  font-size: 5.59px;
+  transform: scaleX(1.7513);
+  color: #6C6C6C;
+}
+
+.upload-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 169px;
+    border-radius: 3px;
+    background-color: #E8F1F6;
+    margin-bottom: 30px;
+}
+
+.upload-zone p {
+    font-size: 10px;
+    color: #444444;
+}
+
+.fa-image {
+    color: #B9C5CC;
+    font-size: 76px;
+}
+
+.add-file-button {
+    height: 36px;
+    width: 173px;
+    border-radius: 50px;
+    background-color: #CBD6DC;
+    border: none;
+    font-family: 'Work Sans';
+    font-weight: 500;
+    font-size: 14px;
+    color: #306685;
+    margin-top: 6px;
+    margin-bottom: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#file {
+    display: none;
+}
+
+.add-photo-button.photo-view {
+    background-color: #A7A7A7;
+}
+
+.modal-wrapper.photo-view {
+    padding-bottom: 55px;
+    height: 670px;
+}
+
+.modal-wrapper .add-photo-button.photo-view {
+    margin-top: 32px;
+}
+
+.preview {
+    width: 129px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.is-hidden {
+    display: none;
 }

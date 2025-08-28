@@ -37,7 +37,7 @@ function getFilters() {
     if(filters) {
         const defaultButton = document.createElement("button")
         defaultButton.textContent = "Tous"
-        defaultButton.classList.add("button_selected")
+        defaultButton.classList.add("button-selected")
             filters.appendChild(defaultButton)
 
         for(let i = 0; i < categories.length; i++) {
@@ -56,9 +56,9 @@ const buttonFilters = document.querySelectorAll("button")
 /*Fonction pour appliquer le style du bouton sur lequel on a cliqué*/
 function activeButtonStyle(clickedButton) {
 	buttonFilters.forEach(button => {
-			button.classList.remove("button_selected")
+			button.classList.remove("button-selected")
 		})
-		clickedButton.classList.add("button_selected");
+		clickedButton.classList.add("button-selected");
 }
 
 /*Ajout EventListener sur les boutons*/
@@ -83,30 +83,30 @@ buttonFilters.forEach(button => {
 
 
 /*Ajout photos dans la modale*/
-const modalPhotos = document.querySelector(".modal_photos")
+const modalPhotos = document.querySelector(".modal-photos")
 getWorks(works, modalPhotos)
 
 /*Suppression description (texte) sous les photos*/
-const modalPhotosText = document.querySelectorAll(".modal_photos figcaption")
+const modalPhotosText = document.querySelectorAll(".modal-photos figcaption")
 modalPhotosText.forEach(photosText => {
     photosText.remove() 
 })
 
 /*Ajout icônes poubelles sur les photos*/
-const modalFigures = document.querySelectorAll(".modal_photos figure")
+const modalFigures = document.querySelectorAll(".modal-photos figure")
 
 modalFigures.forEach(figure => {
     const trashIcon = `
-        <button class="delete_photo"> <i class="fa-solid fa-trash-can"></i> </button>
+        <button class="delete-photo"> <i class="fa-solid fa-trash-can"></i> </button>
     `
     figure.innerHTML += trashIcon
 })
 
 /*Ajout icônes croix (fermeture) sur les photos*/
-const modalWrapper = document.querySelector(".modal_wrapper")
+const modalWrapper = document.querySelector(".modal-wrapper")
 
 const crossIcon = `
-    <button class="modal_close"> <i class="fa-solid fa-xmark"></i> </button>
+    <button class="modal-close"> <i class="fa-solid fa-xmark"></i> </button>
 `
 modalWrapper.innerHTML += crossIcon
 
@@ -121,24 +121,24 @@ const openModal = function (e) {
     e.preventDefault();
     modal = document.querySelector(e.currentTarget.getAttribute('href'))
     focusables = Array.from(modal.querySelectorAll(focusableSelector))
-    modal.classList.add('modal_open')
+    modal.classList.add('modal-open')
     modal.removeAttribute('aria-hidden')
     modal.setAttribute('aria-modal', 'true')
     modal.addEventListener("click", closeModal)
-    modal.querySelector(".modal_close").addEventListener("click", closeModal)
-    modal.querySelector(".modal_stop").addEventListener("click", stopPropagation)
+    modal.querySelector(".modal-close").addEventListener("click", closeModal)
+    modal.querySelector(".modal-stop").addEventListener("click", stopPropagation)
 }
 
 /*Fonction pour la fermeture de la modale*/
 const closeModal = function (e) {
     if (modal === null) return
     e.preventDefault();
-    modal.classList.remove('modal_open')
+    modal.classList.remove('modal-open')
     modal.setAttribute('aria-hidden', 'true')
     modal.removeAttribute('aria-modal')
     modal.removeEventListener("click", closeModal)
-    modal.querySelector(".modal_close").removeEventListener("click", closeModal)
-    modal.querySelector(".modal_stop").removeEventListener("click", stopPropagation)
+    modal.querySelector(".modal-close").removeEventListener("click", closeModal)
+    modal.querySelector(".modal-stop").removeEventListener("click", stopPropagation)
     modal = null
 
 }
@@ -176,5 +176,91 @@ window.addEventListener("keydown", function(e) {
     }
 })
 
-const modalLink = document.querySelector(".modal_link")
+const modalLink = document.querySelector(".modal-link")
 modalLink.addEventListener("click", openModal)
+
+/*Modale - Vue ajout photo*/
+
+const modalTitle = document.querySelector("#modal-title")
+const addPhotoButton = document.querySelector(".add-photo-button")
+
+/*Ajout EventListener sur le bouton "Ajouter une photo*/ 
+addPhotoButton.addEventListener("click", () => {
+    modalTitle.textContent = "Ajout photo"
+    const currentModalPhotos = document.querySelector(".modal-photos")
+    currentModalPhotos.classList.add("is-hidden")
+    const modalForm = `
+        <form action="#" method="post">
+            <div class="upload-zone">
+                <i class="fa-solid fa-image"></i>
+                <label class="add-file-button" for="file" >+ Ajouter photo</label>
+                <p>jpg, png : 4mo max</p>
+                <input type="file" name="file" id="file" accept=".jpg,.png" required>
+                <img id="previewImage" class="preview is-hidden" alt="Aperçu de l'image téléchargée">
+            </div>
+			<label for="title"> Titre </label>
+			<input type="text" name="title" id="title">
+			<label for="category"> Catégorie </label>
+            <div class="select-container">
+                <select name="category" id="category" placeholder="">
+                    <option value="" selected disabled hidden></option>
+                </select>
+                <i class="fa-solid fa-chevron-down" id="chevron"></i>
+            </div>
+		</form>
+    `
+    modalTitle.insertAdjacentHTML("afterend", modalForm);
+    addPhotoButton.value = "Valider"
+    addPhotoButton.classList.add("photo-view")
+    modalWrapper.classList.add("photo-view")
+
+    /*Ajout icône de retour vers boite modale préccédente (vue galerie)*/
+    const gobackArrowInsert = `
+    <button class="goback-arrow"> <i class="fa-solid fa-arrow-left"></i> </button>
+    `
+    modalWrapper.insertAdjacentHTML("beforeend", gobackArrowInsert)
+    const gobackArrowElement = document.querySelector(".goback-arrow")
+    console.log(gobackArrowElement)
+    gobackArrowElement.addEventListener("click", (e) => {
+        openModal(e)
+    })
+
+    /*Ajout liste déroulante des catégories depuis l'API*/
+    const modalCategoryList = document.querySelector("#category")
+    for(let i = 0; i < categories.length; i++) {
+        const modalCategoryChoice = document.createElement("option")
+        modalCategoryChoice.textContent = modalCategoryChoice.value = categories[i].name
+        modalCategoryList.appendChild(modalCategoryChoice)
+    }
+
+    const chevronIcon = document.querySelector("#chevron")
+    chevronIcon.addEventListener("click", (e) => {
+        e.preventDefault()
+        modalCategoryList.focus()
+        modalCategoryList.click()
+    })
+    
+    /*Récupération et affichage de l'aperçu de l'image chargée*/
+    const fileInput = document.querySelector("#file")
+    const previewImage = document.querySelector("#previewImage")
+    const imageIcon = document.querySelector(".fa-image")
+    const addFileButton = document.querySelector(".add-file-button")
+    const imageType = document.querySelector(".upload-zone p")
+
+
+    fileInput.addEventListener("change", () => {
+        const file = fileInput.files[0]
+        const uploadImage = new FileReader ();
+        uploadImage.onload = (e) => {
+            previewImage.src = e.target.result;
+            previewImage.classList.remove("is-hidden")
+            imageIcon.classList.add("is-hidden")
+            addFileButton.classList.add("is-hidden")
+            imageType.classList.add("is-hidden")
+
+        }
+        uploadImage.readAsDataURL(file)
+    })
+
+
+})
