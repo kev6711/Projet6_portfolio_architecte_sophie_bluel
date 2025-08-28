@@ -21,7 +21,7 @@ function getWorks(works, gallery) {
         const image = works[i].imageUrl
         const title = works[i].title
         const figure = `
-        <figure>
+        <figure data-id="${works[i].id}">
             <img src="${image}" alt="${title}">
             <figcaption>${title}</figcaption>
         </figure>
@@ -95,12 +95,13 @@ modalPhotosText.forEach(photosText => {
 /*Ajout icônes poubelles sur les photos*/
 const modalFigures = document.querySelectorAll(".modal-photos figure")
 
-modalFigures.forEach(figure => {
-    const trashIcon = `
-        <button class="delete-photo"> <i class="fa-solid fa-trash-can"></i> </button>
+modalFigures.forEach((figure, i) => {
+    const trashIconInsert = `
+        <button class="delete-photo" data-id="${works[i].id}"> <i class="fa-solid fa-trash-can" ></i> </button>
     `
-    figure.innerHTML += trashIcon
+    figure.insertAdjacentHTML("beforeend", trashIconInsert)
 })
+
 
 /*Ajout icônes croix (fermeture) sur les photos*/
 const modalWrapper = document.querySelector(".modal-wrapper")
@@ -179,6 +180,26 @@ window.addEventListener("keydown", function(e) {
 const modalLink = document.querySelector(".modal-link")
 modalLink.addEventListener("click", openModal)
 
+/*Gestion de la fonctionnalité pour la suppression de travaux existant*/
+const deletePhotosButtons = document.querySelectorAll(".delete-photo")
+deletePhotosButtons.forEach(deletePhotoButton => {
+    deletePhotoButton.addEventListener("click", async (e) => {
+        e.preventDefault()
+        const workId = deletePhotoButton.dataset.id
+        const token = localStorage.getItem("token")
+        const responseDelete = await fetch(`http://localhost:5678/api/works/${workId}`, {
+            method : "DELETE",
+            headers : { "Authorization": `Bearer ${token}` }
+
+        })
+        deletePhotoButton.closest("figure").remove()
+        const deleteFigure = document.querySelector(`.gallery figure[data-id="${workId}"`)
+        deleteFigure.remove()
+        
+    })
+})
+
+
 /*Modale - Vue ajout photo*/
 
 const modalTitle = document.querySelector("#modal-title")
@@ -189,7 +210,7 @@ addPhotoButton.addEventListener("click", () => {
     modalTitle.textContent = "Ajout photo"
     const currentModalPhotos = document.querySelector(".modal-photos")
     currentModalPhotos.classList.add("is-hidden")
-    const modalForm = `
+    const modalFormInsert = `
         <form action="#" method="post">
             <div class="upload-zone">
                 <i class="fa-solid fa-image"></i>
@@ -209,7 +230,7 @@ addPhotoButton.addEventListener("click", () => {
             </div>
 		</form>
     `
-    modalTitle.insertAdjacentHTML("afterend", modalForm);
+    modalTitle.insertAdjacentHTML("afterend", modalFormInsert);
     addPhotoButton.value = "Valider"
     addPhotoButton.classList.add("photo-view")
     modalWrapper.classList.add("photo-view")
@@ -219,10 +240,18 @@ addPhotoButton.addEventListener("click", () => {
     <button class="goback-arrow"> <i class="fa-solid fa-arrow-left"></i> </button>
     `
     modalWrapper.insertAdjacentHTML("beforeend", gobackArrowInsert)
+
+    /*Ajout EventListener sur la flèche retour pour afficher modale vue galerie*/
     const gobackArrowElement = document.querySelector(".goback-arrow")
-    console.log(gobackArrowElement)
-    gobackArrowElement.addEventListener("click", (e) => {
-        openModal(e)
+    gobackArrowElement.addEventListener("click", () => {
+        modalTitle.textContent = "Galerie photo"
+        currentModalPhotos.classList.remove("is-hidden")
+        const modalFormElement = document.querySelector(".modal-wrapper form")
+        modalFormElement.remove()
+        addPhotoButton.value = "Ajouter une photo"
+        addPhotoButton.classList.remove("photo-view")
+        modalWrapper.classList.remove("photo-view")
+        gobackArrowElement.remove()
     })
 
     /*Ajout liste déroulante des catégories depuis l'API*/
@@ -261,6 +290,5 @@ addPhotoButton.addEventListener("click", () => {
         }
         uploadImage.readAsDataURL(file)
     })
-
 
 })
