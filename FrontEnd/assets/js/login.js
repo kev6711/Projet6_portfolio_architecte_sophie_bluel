@@ -37,7 +37,7 @@ loginForm.addEventListener("submit", async function (event) {
 
     if (responseLogin.ok) {
         localStorage.setItem("token", responseLoginData.token)
-        window.location.href = "../html/accueil-mode-edition.html"
+        window.location.href = "../html/accueil_mode_edition.html"
     } else {
         displayErrorMessage()
     }

@@ -206,8 +206,12 @@ deletePhotosButtons.forEach(deletePhotoButton => {
 const modalTitle = document.querySelector("#modal-title")
 const addPhotoButton = document.querySelector(".add-photo-button")
 
+
 /*Ajout EventListener sur le bouton "Ajouter une photo*/ 
-addPhotoButton.addEventListener("click", () => {
+function openModalPhotoView () {
+
+    addPhotoButton.removeEventListener("click", openModalPhotoView)
+
     modalTitle.textContent = "Ajout photo"
     const currentModalPhotos = document.querySelector(".modal-photos")
     currentModalPhotos.classList.add("is-hidden")
@@ -257,13 +261,15 @@ addPhotoButton.addEventListener("click", () => {
         if(errorMessage) {
             errorMessage.remove()
         }
+        addPhotoButton.addEventListener("click", openModalPhotoView)
     })
 
     /*Ajout liste déroulante des catégories depuis l'API*/
     const modalCategoryList = document.querySelector("#category")
     for(let i = 0; i < categories.length; i++) {
         const modalCategoryChoice = document.createElement("option")
-        modalCategoryChoice.textContent = modalCategoryChoice.value = categories[i].name
+        modalCategoryChoice.textContent = categories[i].name
+        modalCategoryChoice.value = categories[i].id
         modalCategoryList.appendChild(modalCategoryChoice)
     }
 
@@ -318,13 +324,17 @@ addPhotoButton.addEventListener("click", () => {
         const errorMessage = document.querySelector(".form-Error")
         if(fileInput.files.length !== 0 && modalPhotoTitle.value.length !== 0 && modalCategoryList.selectedIndex !== 0) {
             addPhotoButton.classList.remove("photo-view")
+            if(errorMessage) {
             errorMessage.remove()
+            }
+            return true
         } else {
             ErrorMessage()
 
             if(!addPhotoButton.classList.contains("photo-view")) {
                 addPhotoButton.classList.add("photo-view")
             }
+            return false
         }
     }
 
@@ -337,5 +347,34 @@ addPhotoButton.addEventListener("click", () => {
     modalCategoryList.addEventListener("change", () => {
         validForm()
     })
-})
+
+    addPhotoButton.addEventListener("click", async function (e) {
+        e.preventDefault()
+        if (validForm()) {
+            console.log("validé")
+            /*Envoi d'un nouveau projet à l'API*/
+            const token = localStorage.getItem("token")
+            console.log(fileInput.files[0])
+            console.log(modalPhotoTitle.value)
+            console.log(modalCategoryList.value)
+
+            const workFormData = new FormData()
+            workFormData.append("image", fileInput.files[0])
+            workFormData.append("title", modalPhotoTitle.value)
+            workFormData.append("category", modalCategoryList.value)
+
+            const responsePostWorks = await fetch("http://localhost:5678/api/works", {
+                method : "POST",
+                headers : { "Authorization": `Bearer ${token}` },
+                body: workFormData
+            })
+
+        }   else {
+            console.log("invalidé")
+        }
+    })
+}
+
+addPhotoButton.addEventListener("click", openModalPhotoView)
+
 
