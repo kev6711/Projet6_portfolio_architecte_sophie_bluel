@@ -61,7 +61,7 @@ function activeButtonStyle(clickedButton) {
 		clickedButton.classList.add("button-selected");
 }
 
-/*Ajout EventListener sur les boutons*/
+/*Ajout EventListener sur les boutons pour filtrer*/
 buttonFilters.forEach(button => {
     button.addEventListener("click", () => {
         const buttonName = button.textContent;
@@ -200,6 +200,7 @@ deletePhotosButtons.forEach(deletePhotoButton => {
 })
 
 
+
 /*Modale - Vue ajout photo*/
 
 const modalTitle = document.querySelector("#modal-title")
@@ -252,6 +253,10 @@ addPhotoButton.addEventListener("click", () => {
         addPhotoButton.classList.remove("photo-view")
         modalWrapper.classList.remove("photo-view")
         gobackArrowElement.remove()
+        const errorMessage = document.querySelector(".form-Error")
+        if(errorMessage) {
+            errorMessage.remove()
+        }
     })
 
     /*Ajout liste déroulante des catégories depuis l'API*/
@@ -291,4 +296,46 @@ addPhotoButton.addEventListener("click", () => {
         uploadImage.readAsDataURL(file)
     })
 
+    /*Gestion de la fonctionnalité pour ajouter un nouveau projet*/
+    const modalPhotoTitle = document.querySelector("#title")
+
+    /*Fonction pour afficher message d'erreur*/
+    function ErrorMessage () {
+        const formTitle = document.querySelector("h3")
+        /* Permet de supprimer l'ancien message d'erreur si plusieurs tentatives de connexion infructueuses*/
+        const oldErrorMessage = document.querySelector(".form-Error")
+        if (oldErrorMessage) {
+            oldErrorMessage.remove()
+        }
+        const errorMessage = `
+            <p class="form-Error"> Il faut insérer une image, renseigner un titre et choisir une catégorie </p> 
+        `
+        formTitle.insertAdjacentHTML("afterend", errorMessage)
+    }
+
+    /*Gestion de la validation du formulaire*/
+    function validForm () {
+        const errorMessage = document.querySelector(".form-Error")
+        if(fileInput.files.length !== 0 && modalPhotoTitle.value.length !== 0 && modalCategoryList.selectedIndex !== 0) {
+            addPhotoButton.classList.remove("photo-view")
+            errorMessage.remove()
+        } else {
+            ErrorMessage()
+
+            if(!addPhotoButton.classList.contains("photo-view")) {
+                addPhotoButton.classList.add("photo-view")
+            }
+        }
+    }
+
+    fileInput.addEventListener("input", () => {
+        validForm()
+    })
+    modalPhotoTitle.addEventListener("change", () => {
+        validForm()
+    })
+    modalCategoryList.addEventListener("change", () => {
+        validForm()
+    })
 })
+

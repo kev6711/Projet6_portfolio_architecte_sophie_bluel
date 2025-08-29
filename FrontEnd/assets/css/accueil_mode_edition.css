@@ -271,6 +271,15 @@ button {
     object-fit: cover;
 }
 
+.form-Error {
+	font-family: 'Work Sans';
+	font-size : 14px;
+	font-weight: bold;
+	color : red;
+	margin-top: 14px;
+    text-align: center;
+}
+
 .is-hidden {
     display: none;
 }
