@@ -2,7 +2,9 @@
 .projects,
 .modal,
 .modal-wrapper,
-.modal-link {
+.modal-link,
+.upload-zone,
+.add-file-button {
     display: flex;
     align-items: center;
 }
@@ -10,41 +12,43 @@
 .edition-handband,
 .projects,
 .modal,
-.modal-wrapper {
+.modal-wrapper
+.upload-zone,
+.add-file-button {
     justify-content: center;
 }
 
+.head-container.edition-mode {
+    margin-top: 38px;
+    margin-bottom: 92px; 
+}
 .edition-handband {
     gap: 11px;
     background-color: #000000;
     height: 59px;
     color: #FFFFFF;
 }
-
 .fa-pen-to-square {
     width: 15.58px;
     height: 15.58px;
 }
-
 .handband-title {
     font-size: 16px;
 }
-
 .projects {
     gap: 31px;
     margin-bottom: 92px;
 }
-
 #portfolio .projects h2 {
     margin-bottom: 0;
 }
 
+/* MODALE */
 .modal-link {
     gap: 10px;
     text-decoration: none;
     color: #000000;
 }
-
 .modal {
     position: fixed;
     top: 0;
@@ -54,12 +58,9 @@
     background-color: rgba(0, 0, 0, 0.3);
     display: none;
 }
-
 .modal-open {
     display: flex;
 }
-
-
 .modal-wrapper {
     flex-direction: column;
     width: 630px;
@@ -69,31 +70,26 @@
     overflow: auto;
     border-radius: 10px;
     background-color: #FFFFFF;
-    padding: 60px 105px 45px;
+    padding: 60px 104px 45px;
     box-sizing: border-box;
     position: relative;
 }
-
 .modal-photos {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 9px;
-  row-gap: 29px;
-  margin-top: 46px;
-  padding-bottom: 67px;
-  border-bottom: 1px solid #B3B3B3;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 9px;
+    row-gap: 29px;
+    margin-top: 46px;
+    padding-bottom: 67px;
+    border-bottom: 1px solid #B3B3B3;
 }
-
 .modal-photos figure {
-    width: calc((100% - 36px) / 5);
     height: 102.57px;
     position: relative;
 }
-
 .modal-photos img {
     height: 100%;
 }
-
 .modal-wrapper input[type="submit"] {
     margin-top: 38px;
     margin-bottom: 0;
@@ -103,11 +99,9 @@
     cursor: pointer;
     box-shadow: none;
 }
-
 #modal-title {
     font-size: 26px;
 }
-
 .delete-photo {
     font-size: 11px;
     background-color: #000000;
@@ -119,7 +113,6 @@
     right: 5px;
     border: none;
 }
-
 .modal-close {
     font-size: 12.01px;
     width: 12.01px;
@@ -131,7 +124,6 @@
     background: unset;
     padding: unset;
 }
-
 .goback-arrow {
     font-size: 18.01px;
     width: 21px;
@@ -142,22 +134,15 @@
     background: unset;
     padding: unset;
 }
-
 button {
     cursor: pointer;
 }
-
-.modal :focus {
-    box-shadow: 0 0 5px blue;
-}
-
 .modal-wrapper form {
     margin-top: 36px;
     padding-bottom: 47px;
     border-bottom: 1px solid #B3B3B3;
     width: 420px;
 }
-
 .modal-wrapper input {
     height: 51px;
     width: 100%;
@@ -165,25 +150,25 @@ button {
     border: none;
     padding: unset;
 }
-
 #file {
     margin-bottom: 30px;
 }
 
+#title,
+#category {
+    font-family: 'Work Sans';
+    font-size: 14px;
+    color: #444444;
+}
 #title {
     margin-top: 10px;
     margin-bottom: 21px;
     padding: 0 0 0 16px;
     box-sizing: border-box;
-    font-family: 'Work Sans';
-    font-size: 14px;
-    color: #444444;
 }
-
 .select-container {
-  position: relative;
+    position: relative;
 }
-
 #category {
     margin-top: 10px;
     height: 51px;
@@ -192,94 +177,72 @@ button {
     border: none;
     padding: 0 0 0 16px;
     background-color: #FFFFFF;
-    font-family: 'Work Sans';
-    font-size: 14px;
-    color: #444444;
     appearance: none;
     cursor: pointer;
 }
-
 .fa-chevron-down {
-  position: absolute;
-  top: 34px;
-  right: 20px;
-  font-size: 5.59px;
-  transform: scaleX(1.7513);
-  color: #6C6C6C;
+    position: absolute;
+    top: 34px;
+    right: 20px;
+    font-size: 5.59px;
+    transform: scaleX(1.7513);
+    color: #6C6C6C;
+    pointer-events: none;
 }
-
+.fa-chevron-down::before {
+  pointer-events: none;    
+}
 .upload-zone {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     width: 100%;
     height: 169px;
     border-radius: 3px;
     background-color: #E8F1F6;
     margin-bottom: 30px;
 }
-
 .upload-zone p {
     font-size: 10px;
     color: #444444;
 }
-
 .fa-image {
     color: #B9C5CC;
     font-size: 76px;
 }
-
 .add-file-button {
     height: 36px;
     width: 173px;
     border-radius: 50px;
     background-color: #CBD6DC;
     border: none;
-    font-family: 'Work Sans';
-    font-weight: 500;
-    font-size: 14px;
     color: #306685;
     margin-top: 6px;
     margin-bottom: 7px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
 }
-
 #file {
     display: none;
 }
-
 .add-photo-button.photo-view {
     background-color: #A7A7A7;
 }
-
 .modal-wrapper.photo-view {
     padding-bottom: 55px;
     height: 670px;
 }
-
 .modal-wrapper .add-photo-button.photo-view {
     margin-top: 32px;
 }
-
 .preview {
     width: 129px;
     height: 100%;
     object-fit: cover;
 }
-
 .form-Error {
-	font-family: 'Work Sans';
-	font-size : 14px;
 	font-weight: bold;
 	color : red;
 	margin-top: 14px;
     text-align: center;
 }
-
 .is-hidden {
     display: none;
 }

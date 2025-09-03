@@ -1,40 +1,52 @@
 .li-bold {
     font-weight: 600;
 }
-
 #login {
 	width: 50%;
     margin: 150px auto 355px auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 #login > * {
 	text-align: center;
-
 }
 #login h2{
-	margin-bottom: 20px;
+	margin-bottom: 7px;
 }
 #login form {
 	text-align: left;
-	margin-top:30px;
 	display: flex;
 	flex-direction: column;
+	width: 379px;
 }
-
 #login input {
-	height: 50px;
+	height: 51px;
+	font-family: 'Work Sans';
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding: unset;
+}
+#login .connection-button {
+	height: 36px;
+	width: 179px;
+	padding: unset;
+	margin: 37px auto 28px;
+	font-family: 'Syne';
+	font-size: 14px;
+	box-shadow: unset;
 }
 #login label {
-	margin: 2em 0 1em 0;
+	margin: 30px 0 7px 0;
+	color: #3D3D3D;
 }
-
 .forgotten-password {
     text-align: center;
     text-decoration: underline;
+	cursor: pointer;
+	color: #3D3D3D;
 }
-
 .login-Error {
 	font-family: 'Work Sans';
 	font-size : 14px;

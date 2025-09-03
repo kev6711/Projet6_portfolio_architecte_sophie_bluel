@@ -54,7 +54,7 @@ function getOtherFilters () {
 
 /* Regroupement des 2 fonctions pour créer tous les filtres*/
 function getFilters () {
-    if (!filters) return;
+    if (!filters) return
     getFirstFilter()
     getOtherFilters()
 }
@@ -74,14 +74,14 @@ function activeButtonStyle(clickedButton) {
 /* Ajout EventListener sur les boutons filtres pour générer les travaux filtrés*/
 buttonFilters.forEach(button => {
     button.addEventListener("click", () => {
-        const buttonName = button.textContent;
+        const buttonName = button.textContent
 
         if (buttonName === "Tous") {
             getWorks(works, gallery)
         } else {
             const worksFilter = works.filter(function(work) {
-                return work.category.name === buttonName;
-            });
+                return work.category.name === buttonName
+            })
             getWorks(worksFilter, gallery)
         }
         activeButtonStyle(button)
@@ -104,6 +104,7 @@ if (modalPhotos) {
 
 // Fonction  pour ajouter icône de poubelle sur les photos de la modale
 function addTrashIconPhoto() {
+    if (!modalPhotos) return
     const modalFigures = modalPhotos.querySelectorAll("figure")
     modalFigures.forEach((figure) => {
     if (!figure.querySelector(".delete-photo")) {
@@ -115,13 +116,13 @@ function addTrashIconPhoto() {
       `
       figure.insertAdjacentHTML("beforeend", trashIconInsert)
     }
-  });
+  })
 }
 
 addTrashIconPhoto()
 
 /* Ajout icônes croix (fermeture) sur les photos */
-if (!modalWrapper.querySelector(".modal-close")) {
+if (modalWrapper && !modalWrapper.querySelector(".modal-close")) {
     const modalWrapper = document.querySelector(".modal-wrapper")
     const crossIcon = `
         <button class="modal-close"> <i class="fa-solid fa-xmark"></i> </button>
@@ -133,8 +134,6 @@ if (!modalWrapper.querySelector(".modal-close")) {
    Ouverture / Fermeture modale
    ========================= */
 let modal = null
-const focusableSelector = "button, input, a, textarea, select"
-let focusables = []
 
 function resetModalToGalleryView() {
     // Définition constantes
@@ -152,17 +151,16 @@ function resetModalToGalleryView() {
     modalWrapper.classList.remove("photo-view")
 
     // Bouton redevient "Ajouter une photo" et reprend son listener d'ouverture
-    addPhotoButton.value = "Ajouter une photo";
-    addPhotoButton.classList.remove("photo-view");
-    addPhotoButton.removeEventListener("click", handleSubmitNewWork);
-    addPhotoButton.addEventListener("click", handleOpenAddView);
+    addPhotoButton.value = "Ajouter une photo"
+    addPhotoButton.classList.remove("photo-view")
+    addPhotoButton.removeEventListener("click", handleSubmitNewWork)
+    addPhotoButton.addEventListener("click", handleOpenAddView)
 }
 
 /*Fonction pour l'ouverture de la modale*/
 const openModal = function (e) {
     e.preventDefault()
     modal = document.querySelector(e.currentTarget.getAttribute("href"))
-    focusables = Array.from(modal.querySelectorAll(focusableSelector))
     resetModalToGalleryView()
     modal.classList.add("modal-open")
     modal.removeAttribute("aria-hidden")
@@ -174,13 +172,13 @@ const openModal = function (e) {
 
 /*Fonction pour la fermeture de la modale*/
 const closeModal = function (e) {
-    if (modal === null) return;
-    e.preventDefault();
+    if (modal === null) return
+    e.preventDefault()
     resetModalToGalleryView()
     modal.classList.remove("modal-open")
     modal.setAttribute("aria-hidden", "true")
     modal.removeAttribute("aria-modal")
-    modal.removeEventListener("click", closeModal);
+    modal.removeEventListener("click", closeModal)
     modal.querySelector(".modal-close").removeEventListener("click", closeModal)
     modal.querySelector(".modal-stop").removeEventListener("click", stopPropagation)
     modal = null
@@ -191,36 +189,24 @@ const stopPropagation = function (e) {
     e.stopPropagation()
 }
 
-// Gestion focus
-const focusInModal = function (e) {
-    e.preventDefault();
-    let index = focusables.findIndex((f) => f === modal.querySelector(":focus"))
-    if (e.shiftKey === true) index--
-    else index++
-    if (index >= focusables.length) index = 0
-    if (index < 0) index = focusables.length - 1
-    focusables[index].focus()
-}
-
 /*Gestion de la fermeture de la modale avec la touche Echap*/
 window.addEventListener("keydown", function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
-    closeModal(e)
-    }
-    if (e.key === "Tab" && modal !== null) {
-    focusInModal(e)
+        closeModal(e)
     }
 })
 
 // Lien qui ouvre la modale
-modalLink.addEventListener("click", openModal)
+if (modalLink) {
+    modalLink.addEventListener("click", openModal)
+}
 
 /*Gestion de la fonctionnalité pour la suppression de travaux existant*/
 function deleteWorks() {
     const deletePhotosButtons = document.querySelectorAll(".delete-photo")
     deletePhotosButtons.forEach((deletePhotoButton) => {
     deletePhotoButton.addEventListener("click", async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const workId = deletePhotoButton.dataset.id
         const token = localStorage.getItem("token")
         await fetch(`http://localhost:5678/api/works/${workId}`, {
@@ -231,13 +217,13 @@ function deleteWorks() {
             // Remove dans modale
             deletePhotoButton.closest("figure").remove()
             // Remove dans galerie principale
-            const deleteFigure = document.querySelector(`.gallery figure[data-id="${workId}"]`);
+            const deleteFigure = document.querySelector(`.gallery figure[data-id="${workId}"]`)
             deleteFigure?.remove()
         })
     })
 }
 
-deleteWorks();
+deleteWorks()
 
 /* =========================
    Vue "Ajout photo"
@@ -297,7 +283,7 @@ async function handleSubmitNewWork(e) {
     modalPhotos.insertAdjacentHTML("beforeend", modalFigure)
 
     // Ajout de l'icône poubelle sur le travail ajouté
-    const lastFigure = modalPhotos.querySelector(`figure[data-id="${newWork.id}"]`);
+    const lastFigure = modalPhotos.querySelector(`figure[data-id="${newWork.id}"]`)
     if (lastFigure && !lastFigure.querySelector(".delete-photo")) {
             const addTrashIconToLastWork = `
                 <button class="delete-photo" data-id="${newWork.id}">
@@ -310,7 +296,7 @@ async function handleSubmitNewWork(e) {
   // Ajout de l'EventListener sur l'icône poubelle du travail ajouté
   deleteWorks()
 
-  closeModal(e);
+  closeModal(e)
 }
 
 // 3) Construction de la vue Ajout (formulaire)
@@ -365,14 +351,6 @@ function openModalPhotoView() {
         modalCategoryList.appendChild(modalCategoryChoice)
     }
 
-    // Ajout EventListener sur chevron pour défilement de la liste - A CORRIGER
-    const chevronIcon = document.querySelector("#chevron")
-    chevronIcon.addEventListener("click", (e) => {
-        e.preventDefault()
-        modalCategoryList.focus()
-        modalCategoryList.click()
-    })
-
     // Récupération et affichage de l'aperçu de l'image chargée
     const fileInput = document.querySelector("#file")
     const previewImage = document.querySelector("#previewImage")
@@ -394,7 +372,7 @@ function openModalPhotoView() {
     })
 
     // Validation live
-    const modalPhotoTitle = document.querySelector("#title");
+    const modalPhotoTitle = document.querySelector("#title")
     function showErrorMessage() {
         const formTitle = document.querySelector("h3")
         // Permet de supprimer l'ancien message d'erreur si plusieurs tentatives de connexion infructueuses
@@ -435,8 +413,8 @@ function openModalPhotoView() {
     // Ajout EventListener sur flèche pour revenir à la vue modale galerie
     const gobackArrowElement = document.querySelector(".goback-arrow")
     gobackArrowElement.addEventListener("click", (e) => {
-        e.preventDefault();
-        resetModalToGalleryView();
+        e.preventDefault()
+        resetModalToGalleryView()
     })
 
     // SWAP des listeners du bouton principal :
@@ -445,4 +423,6 @@ function openModalPhotoView() {
 }
 
 // Attacher UNE SEULE FOIS le listener d’ouverture sur le bouton principal
-addPhotoButton.addEventListener("click", handleOpenAddView)
+if (addPhotoButton) {
+    addPhotoButton.addEventListener("click", handleOpenAddView)
+}

@@ -7,6 +7,9 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+html {
+	background-color: #FFFEF8;
+}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -39,6 +42,10 @@ body {
 ol, ul {
 	list-style: none;
 }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 blockquote, q {
 	quotes: none;
 }
@@ -52,9 +59,19 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
+
+.head-container,
+.main-container {
 	max-width: 1140px;
-	margin:auto;
+	margin: auto;
+}
+.head-container {
+	margin-top: 50px;
+	margin-bottom: 139px;
+	display: flex;
+  	align-items: center;
+}
+body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
@@ -66,7 +83,6 @@ header {
 section {
 	margin: 50px 0
 }
-
 h1{
 	display: flex;
 	flex-direction: column;
@@ -75,14 +91,11 @@ h1{
 	font-weight: 800;
 	color: #B1663C
 }
-
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -93,42 +106,61 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 nav li {
-	padding: 0 10px;
-	font-size: 1.2em;
+	padding: 0 22px;
+	font-size: 16px;
 }
-
+.instagram-logo {
+	width: 22px;
+	height: 22px;
+	display: flex;
+  	align-items: center;
+	padding-right: unset;
+}
+.instagram-logo img {
+	width: 19.35px;
+	height: 19.35px;
+	margin-top: 1.5px;
+}
 li:hover {
 	color: #B1663C;
+	cursor:pointer;
 }
 #introduction {
 	display: flex;
 	align-items: center;
+	gap: 72px;
 }
 #introduction figure {
-	flex: 1
+	width: 474px;
+  	height: 355px;
+	margin-left: 95px;
 }
 #introduction img {
 	display: block;
 	margin: auto;
-	width: 80%;
+	width: 100%;
+	height: 100%;
 }
-
 #introduction article {
-	flex: 1
+	flex: 1;
+	margin-right: 95px;
 }
 #introduction h2 {
-	margin-bottom: 1em;
+	margin-bottom: 19px;
 }
-
 #introduction p {
-	margin-bottom: 0.5em;
+	margin-bottom: 22px;
+	color: #3D3D3D;
+}
+#portfolio {
+  margin-top: 139px;
+  margin-bottom: 57px;
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 51px;
 }
 
 /*Ajout styles des filtres*/
@@ -138,84 +170,106 @@ li:hover {
 	gap: 10px;
 	margin-bottom: 51px;
 }
-
-.filters button {
-	height: 37px;
+.filters button,
+input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
-	font-size: 16px;
 	text-align: center;
-	color: #1D6154;
-	border: solid 1px #1D6154;
 	border-radius: 60px;
-	background-color: unset;
-	padding: 8px 13px;
 	cursor: pointer;
 }
-
+.filters button {
+	height: 37px;
+	font-size: 16px;
+	color: #1D6154;
+	border: solid 1px #1D6154;
+	background-color: unset;
+	padding: 8px 20px;
+}
 .filters .button-selected {
 	color: #FFFFFF;
 	background-color: #1D6154;
 }
-
 .gallery {
-	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	grid-column-gap: 18px;
+	grid-row-gap: 16px;
 }
-
 .gallery img {
 	width: 100%;
-
 }
-#contact {
-	width: 50%;
-margin: auto;
+figcaption {
+	font-size: 13px;
+	color: #3D3D3D;
+	margin-top: 7px;
 }
-#contact > * {
-	text-align: center;
-
-}
-#contact h2{
-	margin-bottom: 20px;
-}
+#contact,
 #contact form {
-	text-align: left;
-	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
-
+#contact {
+	width: 50%;
+	margin: auto;
+	align-items: center;
+}
+#contact > * {
+	text-align: center;
+}
+#contact h2{
+	margin-bottom: 10px;
+}
+#contact p {
+	font-size: 16px;
+  	color: #3D3D3D;
+}
+#contact form {
+	text-align: left;
+	width: 83%;
+}
+#contact #name,
+#contact #email {
+	height: 51px;
+}
 #contact input {
-	height: 50px;
+	height: 36px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding: unset;
+	font-size: 14px;
 }
 #contact label {
-	margin: 2em 0 1em 0;
+	margin: 38px 0 7px 0;
+	color: #3D3D3D;
 }
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	height: 174px;
+  	padding: unset;
 }
-
 input[type="submit"]{
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
+	color: #FFFFFF;
 	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
+	margin: 40px auto 45px;
+	width: 179px;
 }
-
+#contact input[type="submit"] {
+	box-shadow: none;
+}
+footer {
+	background-color: #FFFFFF;
+	padding: 21.6px 0;
+  	margin-top: 11.4px;
+}
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
 }
-
+footer nav li {
+	margin-right: 107px;
+	padding: 0;
+	font-size: 14px;
+}
