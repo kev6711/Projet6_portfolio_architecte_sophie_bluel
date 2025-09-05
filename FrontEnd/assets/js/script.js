@@ -90,7 +90,6 @@ buttonFilters.forEach(button => {
     })
 })
 
-
 // ----- FENETRE MODALE ----- //
 
 /* Construction de la modale */

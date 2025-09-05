@@ -185,7 +185,8 @@ function openModalPhotoView () {
     /* Fonction pour tester la validation du formulaire */
     function validForm () {
         const errorMessage = document.querySelector(".form-Error")
-        if (fileInput.files.length !== 0 && modalPhotoTitle.value.length !== 0 && modalCategoryList.selectedIndex !== 0) {
+        const modalPhotoTitleValue = modalPhotoTitle.value.trim()
+        if (fileInput.files.length !== 0 && modalPhotoTitleValue.length !== 0 && modalCategoryList.selectedIndex !== 0) {
             addPhotoButton.classList.remove("photo-view")
             if(errorMessage) {
                 errorMessage.remove ()
