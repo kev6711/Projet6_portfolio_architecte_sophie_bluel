@@ -294,7 +294,7 @@ async function handleSubmitNewWork(e) {
   closeModal (e)
 }
 
-// ----- GESTION DE LA FONCTIONNALITE POUR LA SUPPRESSION DE TRAVAUX EXISANTS ----- //
+// ----- GESTION DE LA FONCTIONNALITE POUR LA SUPPRESSION DE TRAVAUX EXISTANTS ----- //
 
 /* Fonction permettant la suppression d'un projet */
 function deleteWorks () {
