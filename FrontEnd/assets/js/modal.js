@@ -92,9 +92,9 @@ export function addCrossIcon () {
     }
 }
 
-// ----- CONSTRUCTION DE LA MOADALE (VUE AJOUT PHOTO) ----- //
+// ----- CONSTRUCTION DE LA MODALE (VUE AJOUT PHOTO) ----- //
 
-/* Fonction permettant d'avoit le visuel et les fonctionnalités de la modale en vue "ajout photo" */
+/* Fonction permettant d'avoir le visuel et les fonctionnalités de la modale en vue "ajout photo" */
 function openModalPhotoView () {
     /* Nettoyer un éventuel message d’erreur résiduel */
     document.querySelector(".form-Error")?.remove ()
@@ -205,7 +205,7 @@ function openModalPhotoView () {
     modalPhotoTitle.addEventListener("input", validForm)
     modalCategoryList.addEventListener("change", validForm)
 
-    // A retirer si possible
+    // Permet de rendre les fonctions disponibles pour handleSubmitNewWork()
     window.showErrorMessage = showErrorMessage  
     window.validForm = validForm
 

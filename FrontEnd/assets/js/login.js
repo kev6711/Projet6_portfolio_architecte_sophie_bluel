@@ -1,6 +1,6 @@
 // ----- GESTION DU MESSAGE D'ERREUR ----- //
 
-/* Fonction pour afficher message d'erreur si email ou mot de passe incorrects */
+/* Fonction pour afficher message d'erreur si email ou mot de passe incorrect */
 function displayErrorMessage () {
     const formTitle = document.querySelector("h2")
     /* Permet de supprimer l'ancien message d'erreur si plusieurs tentatives de connexion infructueuses */
